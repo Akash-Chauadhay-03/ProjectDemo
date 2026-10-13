@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Java Summary Test | Java Summary Project</title>
+  <style>
+    :root { color-scheme: light; --navy: #17324d; --blue: #286da8; --pale: #eef5fb; --ink: #243447; --error: #a12626; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--pale); color: var(--ink); font: 16px/1.6 Arial, sans-serif; }
+    header { background: var(--navy); color: white; padding: 26px 20px; text-align: center; }
+    header h1 { margin: 0; color: white; }
+    main { width: min(650px, calc(100% - 32px)); margin: 30px auto; background: white; border-radius: 8px; padding: 24px; box-shadow: 0 2px 8px #17324d12; }
+    label { display: block; margin: 16px 0 5px; font-weight: bold; }
+    input, textarea { display: block; width: 100%; border: 1px solid #9aabba; border-radius: 4px; padding: 10px; font: inherit; }
+    textarea { min-height: 150px; resize: vertical; }
+    input:focus, textarea:focus { outline: 2px solid #85b8e3; border-color: var(--blue); }
+    .error { min-height: 1.4em; margin: 3px 0 0; color: var(--error); font-size: 0.92rem; }
+    button { margin-top: 18px; border: 0; border-radius: 5px; background: var(--blue); color: white; padding: 11px 18px; font: bold 1rem Arial, sans-serif; cursor: pointer; }
+    button:hover, button:focus { background: var(--navy); }
+    a { color: var(--blue); }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Submit Your Java Summary</h1>
+    <p>Share what you learned about Java.</p>
+  </header>
+  <main>
+    <form id="summaryForm" action="verify.jsp" method="post" novalidate>
+      <label for="name">Name</label>
+      <input id="name" name="name" type="text" autocomplete="name" required>
+      <p id="nameError" class="error" aria-live="polite"></p>
+
+      <label for="email">Email ID</label>
+      <input id="email" name="email" type="email" autocomplete="email" required>
+      <p id="emailError" class="error" aria-live="polite"></p>
+
+      <label for="summary">Summary</label>
+      <textarea id="summary" name="summary" required></textarea>
+      <p id="summaryError" class="error" aria-live="polite"></p>
+
+      <button type="submit">Submit Summary</button>
+    </form>
+    <p><a href="about.html">Return to About Java</a></p>
+  </main>
+  <script>
+    // Check the same basic rules in the browser before sending the form.
+    document.getElementById("summaryForm").addEventListener("submit", function (event) {
+      var name = document.getElementById("name").value;
+      var email = document.getElementById("email").value.trim();
+      var summary = document.getElementById("summary").value;
+      var nameError = "";
+      var emailError = "";
+      var summaryError = "";
+
+      if (!/^[A-Z][A-Za-z ]{0,8}$/.test(name)) {
+        nameError = "Use English letters and spaces, start with a capital letter, and enter fewer than 10 characters.";
+      }
+      if (!/^[A-Za-z0-9._%+-]+@gmail\.com$/.test(email)) {
+        emailError = "Enter a valid email address ending with @gmail.com.";
+      }
+      if (summary.trim() === "") {
+        summaryError = "Please enter your Java summary.";
+      }
+
+      document.getElementById("nameError").textContent = nameError;
+      document.getElementById("emailError").textContent = emailError;
+      document.getElementById("summaryError").textContent = summaryError;
+
+      if (nameError || emailError || summaryError) {
+        event.preventDefault();
+      }
+    });
+  </script>
+</body>
+</html>
